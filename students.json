@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Rahul",
+        "age": 20,
+        "branch": "Computer Science",
+        "email": "rahul@gmail.com"
+    },
+    {
+        "id": 2,
+        "name": "Priya",
+        "age": 21,
+        "branch": "Information Science",
+        "email": "priya@gmail.com"
+    },
+    {
+        "id": 3,
+        "name": "Arjun",
+        "age": 20,
+        "branch": "Artificial Intelligence",
+        "email": "arjun@gmail.com"
+    },
+    {
+        "id": 4,
+        "name": "Sneha",
+        "age": 22,
+        "branch": "Electronics",
+        "email": "sneha@gmail.com"
+    },
+    {
+        "id": 5,
+        "name": "Kiran",
+        "age": 21,
+        "branch": "Computer Science",
+        "email": "kiran@gmail.com"
+    }
+]
