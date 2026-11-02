@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Path
 import json
 
 app = FastAPI()
@@ -17,7 +17,8 @@ def display_student_data():
     return get_studenet_info()
 
 @app.get("/student/{student_id}")
-def studnet_id(student_id: str):
+def studnet_id(student_id: str = Path(..., description="The ID of the Student", examples=["2001"] )):
+    # ... -----> It means Infortant.
     data = get_studenet_info()
 
     if student_id not in data:
