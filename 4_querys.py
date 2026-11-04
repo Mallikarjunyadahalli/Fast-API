@@ -1,33 +1,38 @@
-from fastapi import FastAPI,  HTTPException, Path
+from typing import Annotated, Optional
+from fastapi import FastAPI, Query, Depends
+from sqlalchemy.orm import Session
+from .database import get_db
+from .models import Item
 
 app = FastAPI()
 
-@app.get("/items/")
-
-async def read_items(q: str | None = None):
-    if q:
-        return {"message": f"Searching for {q}"}
-    return {"message": "Returning all items"}
-
-
-def get_studenet_info():
-    with open("students.json", 'r') as file:
-        data = json.load(file)
-        return data
-
-@app.get("/student")
-def display_student_data():
-    return get_studenet_info()
-
-@app.get("/student/{student_id}")
-def studnet_id(student_id: str = Path(..., description="The ID of the Student", examples=["2001"] )):
-    # ... -----> It means Infortant.
-    data = get_studenet_info()
-
-    if student_id not in data:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Student ID '{student_id}' not exist in student database."
-        )
-
-    return data[student_id]
+@app.get("/items")
+def get_items(
+    db: Annotated[Session, Depends(get_db)],
+    # 1. Search filter with length validation
+    search: Annotated[Optional[str], Query(max_length=50, description="Search by item name")] = None,
+    # 2. Pagination parameters with floor/ceiling constraints
+    skip: Annotated[int, Query(ge=0, description="Number of records to skip")] = 0,
+    limit: Annotated[int, Query(ge=1, le=100, description="Max records to return")] = 20,
+    # 3. Categorical filter
+    category: Annotated[Optional[str], Query()] = None
+):
+    # Construct base query
+    query = db.query(Item)
+    
+    # Apply dynamic filters based on query params
+    if search:
+        query = query.filter(Item.name.ilike(f"%{search}%"))
+    if category:
+        query = query.filter(Item.category == category)
+        
+    # Execute database pagination
+    total_count = query.count()
+    items = query.offset(skip).limit(limit).all()
+    
+    return {
+        "total": total_count,
+        "skip": skip,
+        "limit": limit,
+        "data": items
+    }
