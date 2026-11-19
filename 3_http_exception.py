@@ -5,27 +5,24 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return "WEllcome to learning Fast API."
+    return "Hello wellcome to learning Fast API."
 
-def get_studenet_info():
+def load_student_data():
     with open("students.json", 'r') as file:
         data = json.load(file)
         return data
 
 @app.get("/student")
-def display_student_data():
-    return get_studenet_info()
+def get_student_data():
+    return load_student_data()
 
 @app.get("/student/{student_id}")
-def studnet_id(student_id: str = Path(..., description="The ID of the Student", examples=["2001"] )):
-    # ... -----> It means Infortant.
-    data = get_studenet_info()
+def get_student_id(student_id: str = Path(..., description="Student ID", example="2008" )):
+    data = load_student_data()
 
     if student_id not in data:
         raise HTTPException(
             status_code=404,
-            detail=f"Student ID '{student_id}' not exist in student database."
+            detail=f"Student {student_id} id not in database"
         )
-
     return data[student_id]
-
