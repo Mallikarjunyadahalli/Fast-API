@@ -4,6 +4,7 @@
         "name": "Rahul",
         "age": 20,
         "branch": "Computer Science",
+        "course" : "python",
         "email": "rahul@gmail.com"
     },
     "2002" : {
@@ -11,6 +12,8 @@
         "name": "Priya",
         "age": 21,
         "branch": "Information Science",
+        "course" : "data science",
+
         "email": "priya@gmail.com"
     },
     "2003" : {
@@ -18,6 +21,8 @@
         "name": "Arjun",
         "age": 20,
         "branch": "Artificial Intelligence",
+        "course" : "python",
+
         "email": "arjun@gmail.com"
     },
     "2004" : {
@@ -25,6 +30,8 @@
         "name": "Sneha",
         "age": 22,
         "branch": "Electronics",
+        "course" : "Gen ai",
+
         "email": "sneha@gmail.com"
     },
     "2005" : {
@@ -32,6 +39,8 @@
         "name": "Kiran",
         "age": 21,
         "branch": "Computer Science",
+        "course" : "data science",
+
         "email": "kiran@gmail.com"
     }
 }
